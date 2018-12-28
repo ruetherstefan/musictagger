@@ -1,5 +1,6 @@
 from os import listdir
 import os
+import math
 
 from kivy.app import App
 from kivy.uix.label import Label
@@ -10,11 +11,20 @@ from kivy.uix.boxlayout import BoxLayout
 
 import pygame
 
+import eyed3
+
+
 song_ordner = "C:\P\P\musictagger\inputmusic\\"
 directory_files = listdir(song_ordner)
 watched_song_index = 0
 
 name_of_current_song = ""
+
+
+def get_song_length():
+    audiofile = eyed3.load(get_currend_song_path())
+    return int(math.floor(audiofile.info.time_secs))
+
 
 def get_currend_song_path():
     return song_ordner + 'currentsong.mp3'
@@ -30,6 +40,8 @@ def lade_lied():
 
     pygame.mixer.init()
     pygame.mixer.music.load(get_currend_song_path())
+
+    pygame.mixer.music.play()
 
 
 def play_song(instance):
@@ -52,15 +64,26 @@ class EditScreen(BoxLayout):
         self.orientation = 'vertical'
         self.spacing = 5
 
-        self.add_widget(Label(text=str(directory_files[watched_song_index])))
+        self.add_widget(self.erstelle_kopf_leiste())
         self.add_widget(self.erstelle_lied_leiste())
 
-        song_position = Slider(min=0, max=100)
+        song_position = Slider(min=0, max=get_song_length())
         song_position.step = 1
         song_position.bind(on_touch_up=forward_song)
         self.add_widget(song_position)
 
         self.add_widget(self.erstelle_tag_leiste())
+
+    def erstelle_kopf_leiste(self):
+        kopf_leiste = BoxLayout(spacing=5)
+
+        titel = Label(text=str(directory_files[watched_song_index]))
+        kopf_leiste.add_widget(titel)
+
+        laenge = Label(text=str(get_song_length()))
+        kopf_leiste.add_widget(laenge)
+
+        return kopf_leiste
 
     def erstelle_tag_leiste(self):
         tag_leiste = BoxLayout(spacing=5)
