@@ -1,3 +1,6 @@
+from os import listdir
+import os
+
 from kivy.app import App
 from kivy.uix.label import Label
 from kivy.uix.button import Button
@@ -7,11 +10,26 @@ from kivy.uix.boxlayout import BoxLayout
 
 import pygame
 
+song_ordner = "C:\P\P\musictagger\inputmusic\\"
+directory_files = listdir(song_ordner)
+watched_song_index = 0
+
+name_of_current_song = ""
+
+def get_currend_song_path():
+    return song_ordner + 'currentsong.mp3'
+
+
+def get_current_song_real_path():
+    return song_ordner + str(directory_files[watched_song_index])
+
 
 def lade_lied():
-    file = 'C:\P\P\musictagger\inputmusic\song.mp3'
+    name_of_current_song = str(directory_files[watched_song_index])
+    os.rename(get_current_song_real_path(), get_currend_song_path())
+
     pygame.mixer.init()
-    pygame.mixer.music.load(file)
+    pygame.mixer.music.load(get_currend_song_path())
 
 
 def play_song(instance):
@@ -34,7 +52,7 @@ class EditScreen(BoxLayout):
         self.orientation = 'vertical'
         self.spacing = 5
 
-        self.add_widget(Label(text='Name Lied'))
+        self.add_widget(Label(text=str(directory_files[watched_song_index])))
         self.add_widget(self.erstelle_lied_leiste())
 
         song_position = Slider(min=0, max=100)
@@ -87,6 +105,11 @@ class MyApp(App):
 
     def build(self):
         return EditScreen()
+
+    def on_stop(self):
+        pygame.mixer.stop()
+        pygame.mixer.quit()
+        os.rename(get_currend_song_path(), get_current_song_real_path())
 
 
 if __name__ == '__main__':
