@@ -4,6 +4,22 @@ from kivy.uix.button import Button
 from kivy.uix.togglebutton import ToggleButton
 from kivy.uix.boxlayout import BoxLayout
 
+import pygame
+
+
+def lade_lied():
+    file = 'C:\P\P\musictagger\inputmusic\song.mp3'
+    pygame.mixer.init()
+    pygame.mixer.music.load(file)
+
+
+def play_song(instance):
+    pygame.mixer.music.play()
+
+
+def pause_song(instance):
+    pygame.mixer.music.pause()
+
 
 class EditScreen(BoxLayout):
 
@@ -33,6 +49,7 @@ class EditScreen(BoxLayout):
 
         return tag_leiste
 
+
     def erstelle_lied_leiste(self):
         liedleiste = BoxLayout(spacing=5)
         btn1 = Button(text='Prev')
@@ -40,9 +57,11 @@ class EditScreen(BoxLayout):
 
         btn2 = Button(text='Play')
         liedleiste.add_widget(btn2)
+        btn2.bind(on_press=play_song)
 
         btn3 = Button(text='Pause')
         liedleiste.add_widget(btn3)
+        btn3.bind(on_press=pause_song)
 
         btnminus = Button(text='Minus 10')
         liedleiste.add_widget(btnminus)
@@ -56,6 +75,8 @@ class EditScreen(BoxLayout):
         return liedleiste
 
 
+
+
 class MyApp(App):
 
     def build(self):
@@ -63,4 +84,5 @@ class MyApp(App):
 
 
 if __name__ == '__main__':
+    lade_lied()
     MyApp().run()
