@@ -3,6 +3,7 @@ import os
 import math
 
 from kivy.app import App
+
 from kivy.uix.label import Label
 from kivy.uix.button import Button
 from kivy.uix.togglebutton import ToggleButton
@@ -13,12 +14,15 @@ import pygame
 
 import eyed3
 
+from main.tags import Tags
 
 song_ordner = "C:\P\P\musictagger\inputmusic\\"
 directory_files = listdir(song_ordner)
 watched_song_index = 0
 
 name_of_current_song = ""
+
+tags = Tags()
 
 
 def get_song_length():
@@ -74,6 +78,7 @@ class EditScreen(BoxLayout):
         self.add_widget(song_position)
 
         self.add_widget(self.erstelle_tag_leiste())
+        self.add_widget(self.erstelle_tag_leiste2())
 
     def erstelle_kopf_leiste(self):
         kopf_leiste = BoxLayout(spacing=5)
@@ -89,22 +94,32 @@ class EditScreen(BoxLayout):
     def erstelle_tag_leiste(self):
         tag_leiste = BoxLayout(spacing=5)
 
-        btn1 = ToggleButton(text='Rawstyle', group='gender')
-        tag_leiste.add_widget(btn1)
+        rawstyle = self.erstelle_tag_button('rawstyle')
+        rawstyle.group = 'genre'
+        tag_leiste.add_widget(rawstyle)
+        euphoric = self.erstelle_tag_button('euphoric')
+        euphoric.group = 'genre'
+        tag_leiste.add_widget(euphoric)
 
-        btn2 = ToggleButton(text='Euphoric', group='gender')
-        tag_leiste.add_widget(btn2)
-
-        btn3 = ToggleButton(text='Symphonic')
-        tag_leiste.add_widget(btn3)
-
-        btn4 = ToggleButton(text='Karneval')
-        tag_leiste.add_widget(btn4)
-
-        #top18, klassik, gangster, verschwoerung
+        tag_leiste.add_widget(self.erstelle_tag_button('fairy'))
+        tag_leiste.add_widget(self.erstelle_tag_button('karneval'))
 
         return tag_leiste
 
+    def erstelle_tag_leiste2(self):
+        tag_leiste = BoxLayout(spacing=5)
+
+        tag_leiste.add_widget(self.erstelle_tag_button('top18'))
+        tag_leiste.add_widget(self.erstelle_tag_button('klassik'))
+        tag_leiste.add_widget(self.erstelle_tag_button('verschwoerung'))
+        tag_leiste.add_widget(self.erstelle_tag_button('hardcore'))
+
+        return tag_leiste
+
+    def erstelle_tag_button(self, name):
+        btn1 = ToggleButton(text=name)
+        btn1.bind(state=lambda o, val: tags.set(name, val == "down"))
+        return btn1
 
     def erstelle_lied_leiste(self):
         liedleiste = BoxLayout(spacing=5)
