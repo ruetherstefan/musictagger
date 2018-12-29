@@ -10,14 +10,10 @@ from kivy.uix.boxlayout import BoxLayout
 
 import pygame
 
-import eyed3
-
-from main.tags import Tags
 from main.songdirectory import SongDirectory
 
 
 songdirectory = SongDirectory()
-tags = Tags()
 
 
 def lade_lied():
@@ -47,10 +43,7 @@ def next_song(instance):
     pygame.mixer.stop()
     pygame.mixer.quit()
 
-    audiofile = eyed3.load(songdirectory.get_currend_song_path())
-    audiofile.tag.publisher = tags.create_id3()
-    audiofile.tag.save()
-
+    songdirectory.save_id3()
     os.rename(songdirectory.get_currend_song_path(), songdirectory.get_current_song_real_path())
     songdirectory.inc_watched_song_index()
     lade_lied()
@@ -127,7 +120,7 @@ class EditScreen(BoxLayout):
 
     def erstelle_tag_button(self, name):
         btn1 = ToggleButton(text=name)
-        btn1.bind(state=lambda o, val: tags.set(name, val == "down"))
+        btn1.bind(state=lambda o, val: songdirectory.tags.set(name, val == "down"))
         return btn1
 
     def erstelle_lied_leiste(self):

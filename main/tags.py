@@ -14,7 +14,7 @@ class Tags:
     house = False
     hardtechno = False
 
-    #rock
+    #rock, pop, rap
 
     def set(self, key, value):
         setattr(self, key, value)
