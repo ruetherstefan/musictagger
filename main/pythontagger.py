@@ -52,9 +52,10 @@ def pause_song(instance):
     pygame.mixer.music.pause()
 
 
-def forward_song(instance, motionevent):
-    pygame.mixer.music.rewind()
-    pygame.mixer.music.set_pos(instance.value)
+def forward_song(self, touch):
+    if self.collide_point(*touch.pos):
+        pygame.mixer.music.rewind()
+        pygame.mixer.music.set_pos(self.value)
 
 
 class EditScreen(BoxLayout):
@@ -99,6 +100,8 @@ class EditScreen(BoxLayout):
 
         btn4 = ToggleButton(text='Karneval')
         tag_leiste.add_widget(btn4)
+
+        #top18, klassik, gangster, verschwoerung
 
         return tag_leiste
 
