@@ -1,6 +1,4 @@
-from os import listdir
 import os
-import math
 
 from kivy.app import App
 
@@ -15,35 +13,18 @@ import pygame
 import eyed3
 
 from main.tags import Tags
+from main.songdirectory import SongDirectory
 
-song_ordner = "C:\P\P\musictagger\inputmusic\\"
-directory_files = listdir(song_ordner)
-watched_song_index = 0
 
-name_of_current_song = ""
-
+songdirectory = SongDirectory()
 tags = Tags()
 
 
-def get_song_length():
-    audiofile = eyed3.load(get_currend_song_path())
-    return int(math.floor(audiofile.info.time_secs))
-
-
-def get_currend_song_path():
-    return song_ordner + 'currentsong.mp3'
-
-
-def get_current_song_real_path():
-    return song_ordner + str(directory_files[watched_song_index])
-
-
 def lade_lied():
-    name_of_current_song = str(directory_files[watched_song_index])
-    os.rename(get_current_song_real_path(), get_currend_song_path())
+    os.rename(songdirectory.get_current_song_real_path(), songdirectory.get_currend_song_path())
 
     pygame.mixer.init()
-    pygame.mixer.music.load(get_currend_song_path())
+    pygame.mixer.music.load(songdirectory.get_currend_song_path())
 
     pygame.mixer.music.play()
 
@@ -62,6 +43,23 @@ def forward_song(self, touch):
         pygame.mixer.music.set_pos(self.value)
 
 
+def next_song(instance):
+    pygame.mixer.stop()
+    pygame.mixer.quit()
+
+    audiofile = eyed3.load(songdirectory.get_currend_song_path())
+    audiofile.tag.publisher = tags.create_id3()
+    audiofile.tag.save()
+
+    os.rename(songdirectory.get_currend_song_path(), songdirectory.get_current_song_real_path())
+    songdirectory.inc_watched_song_index()
+    lade_lied()
+
+
+def prev_song(instance):
+    pass
+
+
 class EditScreen(BoxLayout):
 
     def __init__(self, **kwargs):
@@ -72,21 +70,22 @@ class EditScreen(BoxLayout):
         self.add_widget(self.erstelle_kopf_leiste())
         self.add_widget(self.erstelle_lied_leiste())
 
-        song_position = Slider(min=0, max=get_song_length())
+        song_position = Slider(min=0, max=songdirectory.get_song_length())
         song_position.step = 1
         song_position.bind(on_touch_up=forward_song)
         self.add_widget(song_position)
 
         self.add_widget(self.erstelle_tag_leiste())
         self.add_widget(self.erstelle_tag_leiste2())
+        self.add_widget(self.erstelle_tag_leiste3())
 
     def erstelle_kopf_leiste(self):
         kopf_leiste = BoxLayout(spacing=5)
 
-        titel = Label(text=str(directory_files[watched_song_index]))
+        titel = Label(text=str(songdirectory.directory_files[songdirectory.watched_song_index]))
         kopf_leiste.add_widget(titel)
 
-        laenge = Label(text=str(get_song_length()))
+        laenge = Label(text=str(songdirectory.get_song_length()))
         kopf_leiste.add_widget(laenge)
 
         return kopf_leiste
@@ -112,7 +111,17 @@ class EditScreen(BoxLayout):
         tag_leiste.add_widget(self.erstelle_tag_button('top18'))
         tag_leiste.add_widget(self.erstelle_tag_button('klassik'))
         tag_leiste.add_widget(self.erstelle_tag_button('verschwoerung'))
+        tag_leiste.add_widget(self.erstelle_tag_button('intro'))
+
+        return tag_leiste
+
+    def erstelle_tag_leiste3(self):
+        tag_leiste = BoxLayout(spacing=5)
+
         tag_leiste.add_widget(self.erstelle_tag_button('hardcore'))
+        tag_leiste.add_widget(self.erstelle_tag_button('happyhardcore'))
+        tag_leiste.add_widget(self.erstelle_tag_button('house'))
+        tag_leiste.add_widget(self.erstelle_tag_button('hardtechno'))
 
         return tag_leiste
 
@@ -123,23 +132,18 @@ class EditScreen(BoxLayout):
 
     def erstelle_lied_leiste(self):
         liedleiste = BoxLayout(spacing=5)
-        btn1 = Button(text='Prev')
-        liedleiste.add_widget(btn1)
 
-        btn2 = Button(text='Play')
-        liedleiste.add_widget(btn2)
-        btn2.bind(on_press=play_song)
-
-        btn3 = Button(text='Pause')
-        liedleiste.add_widget(btn3)
-        btn3.bind(on_press=pause_song)
-
-        btn4 = Button(text='Next')
-        liedleiste.add_widget(btn4)
+        liedleiste.add_widget(self.erstelle_button_mit_titel_und_funktion('Prev', prev_song))
+        liedleiste.add_widget(self.erstelle_button_mit_titel_und_funktion('Play', play_song))
+        liedleiste.add_widget(self.erstelle_button_mit_titel_und_funktion('Pause', pause_song))
+        liedleiste.add_widget(self.erstelle_button_mit_titel_und_funktion('Next', next_song))
 
         return liedleiste
 
-
+    def erstelle_button_mit_titel_und_funktion(self, name, funktion):
+        btn4 = Button(text=name)
+        btn4.bind(on_press=funktion)
+        return btn4
 
 
 class MyApp(App):
@@ -150,7 +154,7 @@ class MyApp(App):
     def on_stop(self):
         pygame.mixer.stop()
         pygame.mixer.quit()
-        os.rename(get_currend_song_path(), get_current_song_real_path())
+        os.rename(songdirectory.get_currend_song_path(), songdirectory.get_current_song_real_path())
 
 
 if __name__ == '__main__':
