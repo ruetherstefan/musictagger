@@ -19,6 +19,8 @@ class SongDirectory:
 
     def inc_watched_song_index(self):
         self.watched_song_index += 1
+        if self.watched_song_index == len(self.directory_files):
+            self.watched_song_index = 0
         self.tags = Tags()
 
     def get_currend_song_path(self):
