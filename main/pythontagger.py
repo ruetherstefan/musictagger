@@ -16,14 +16,6 @@ from main.songdirectory import SongDirectory
 songdirectory = SongDirectory()
 
 
-def lade_lied():
-    os.rename(songdirectory.get_current_song_real_path(), songdirectory.get_currend_song_path())
-
-    pygame.mixer.init()
-    pygame.mixer.music.load(songdirectory.get_currend_song_path())
-
-    pygame.mixer.music.play()
-
 
 def play_song(instance):
     pygame.mixer.music.play()
@@ -40,13 +32,11 @@ def forward_song(self, touch):
 
 
 def next_song(instance):
-    pygame.mixer.stop()
-    pygame.mixer.quit()
+    pygame.mixer.music.stop()
 
     songdirectory.save_id3()
-    os.rename(songdirectory.get_currend_song_path(), songdirectory.get_current_song_real_path())
     songdirectory.inc_watched_song_index()
-    lade_lied()
+    songdirectory.lade_lied()
 
 
 def prev_song(instance):
@@ -147,9 +137,10 @@ class MyApp(App):
     def on_stop(self):
         pygame.mixer.stop()
         pygame.mixer.quit()
-        os.rename(songdirectory.get_currend_song_path(), songdirectory.get_current_song_real_path())
+        #delete all playcopys
 
 
 if __name__ == '__main__':
-    lade_lied()
+    pygame.mixer.init()
+    songdirectory.lade_lied()
     MyApp().run()
