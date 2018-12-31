@@ -40,7 +40,11 @@ def next_song(instance):
 
 
 def prev_song(instance):
-    pass
+    pygame.mixer.music.stop()
+
+    songdirectory.save_id3()
+    songdirectory.dec_watched_song_index()
+    songdirectory.lade_lied()
 
 
 class EditScreen(BoxLayout):

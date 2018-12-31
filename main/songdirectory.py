@@ -23,6 +23,12 @@ class SongDirectory:
             self.watched_song_index = 0
         self.tags = Tags()
 
+    def dec_watched_song_index(self):
+        self.watched_song_index -= 1
+        if self.watched_song_index == -1:
+            self.watched_song_index = len(self.directory_files) - 1
+        self.tags = Tags()
+
     def get_currend_song_path(self):
         return self.song_ordner + 'playcopy' + str(self.watched_song_index) + '.mp3'
 
@@ -48,3 +54,5 @@ class SongDirectory:
 
         pygame.mixer.music.load(self.get_currend_song_path())
         pygame.mixer.music.play()
+
+
