@@ -133,6 +133,9 @@ class EditScreen(BoxLayout):
         return btn4
 
 
+
+
+
 class MyApp(App):
 
     def build(self):
@@ -141,7 +144,7 @@ class MyApp(App):
     def on_stop(self):
         pygame.mixer.stop()
         pygame.mixer.quit()
-        #delete all playcopys
+        songdirectory.delete_all_playcopys()
 
 
 if __name__ == '__main__':

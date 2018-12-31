@@ -1,4 +1,4 @@
-from os import listdir
+from os import listdir, remove
 import math
 from shutil import copyfile
 
@@ -6,6 +6,8 @@ from pydub import AudioSegment
 import pygame
 
 from main.tags import Tags
+
+PLAYCOPY = 'playcopy'
 
 
 class SongDirectory:
@@ -30,7 +32,7 @@ class SongDirectory:
         self.tags = Tags()
 
     def get_currend_song_path(self):
-        return self.song_ordner + 'playcopy' + str(self.watched_song_index) + '.mp3'
+        return self.song_ordner + PLAYCOPY + str(self.watched_song_index) + '.mp3'
 
     def get_current_song_real_path(self):
         return self.song_ordner + str(self.directory_files[self.watched_song_index])
@@ -54,5 +56,12 @@ class SongDirectory:
 
         pygame.mixer.music.load(self.get_currend_song_path())
         pygame.mixer.music.play()
+
+    def delete_all_playcopys(self):
+        directory_files_with_copies = listdir(self.song_ordner)
+
+        for file in directory_files_with_copies:
+            if PLAYCOPY in file:
+                remove(self.song_ordner + file)
 
 
