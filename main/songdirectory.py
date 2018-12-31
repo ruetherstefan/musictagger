@@ -26,10 +26,12 @@ class SongDirectory:
         return self.song_ordner + str(self.directory_files[self.watched_song_index])
 
     def get_song_length(self):
-        audiofile = eyed3.load(self.get_currend_song_path())
-        return int(math.floor(audiofile.info.time_secs))
+        #audiofile = eyed3.load(self.get_currend_song_path())
+        #return int(math.floor(audiofile.info.time_secs))
+        return 42
 
     def save_id3(self):
-        audiofile = eyed3.load(self.get_currend_song_path())
-        audiofile.tag.publisher = self.tags.create_id3()
-        audiofile.tag.save()
+        pass
+#audiofile = eyed3.load(self.get_currend_song_path())
+        #audiofile.tag.publisher = self.tags.create_id3()
+        #audiofile.tag.save()
