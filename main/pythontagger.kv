@@ -28,3 +28,9 @@
             Button:
                 text : "Next"
                 on_release : root.next_song()
+
+        Slider
+            min : 0
+            max : root.song_length
+            step : 1
+            on_touch_up : root.forward_song(args[0], args[1])

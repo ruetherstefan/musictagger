@@ -14,12 +14,6 @@ from main.songdirectory import SongDirectory
 songdirectory = SongDirectory()
 
 
-def forward_song(self, touch):
-    if self.collide_point(*touch.pos):
-        pygame.mixer.music.rewind()
-        pygame.mixer.music.set_pos(self.value)
-
-
 class EditScreen(Widget):
     song_titel = StringProperty()
     song_length = NumericProperty()
@@ -29,11 +23,6 @@ class EditScreen(Widget):
 
         self.song_titel = songdirectory.get_current_song_name()
         self.song_length = songdirectory.get_currend_song_length()
-
-        #song_position = Slider(min=0, max=songdirectory.get_song_length())
-        #song_position.step = 1
-        #song_position.bind(on_touch_up=forward_song)
-        #self.add_widget(song_position)
 
         #self.add_widget(self.erstelle_tag_leiste())
         #self.add_widget(self.erstelle_tag_leiste2())
@@ -64,7 +53,10 @@ class EditScreen(Widget):
     def pause_song(self):
         pygame.mixer.music.pause()
 
-
+    def forward_song(self, widget, touch):
+        if widget.collide_point(*touch.pos):
+            pygame.mixer.music.rewind()
+            pygame.mixer.music.set_pos(widget.value)
 
 
     def erstelle_tag_leiste(self):
