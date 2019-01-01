@@ -60,3 +60,7 @@ class SongDirectory():
         song.tags["COMMENT"] = [tagstring]
         song.save()
 
+    def load_comment(self):
+        song = taglib.File(self.get_current_song_real_path())
+        return song.tags["COMMENT"][0]
+

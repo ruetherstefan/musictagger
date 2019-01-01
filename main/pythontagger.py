@@ -27,6 +27,7 @@ class EditScreen(BoxLayout):
         self.add_widget(self.erstelle_tag_leiste())
         self.add_widget(self.erstelle_tag_leiste2())
         self.add_widget(self.erstelle_tag_leiste3())
+        self.lade_tags()
 
     def prev_song(self):
         pygame.mixer.music.stop()
@@ -49,11 +50,20 @@ class EditScreen(BoxLayout):
                 tagstring += button.text
         songdirectory.save_comment(tagstring)
 
+    def lade_tags(self):
+        comment = songdirectory.load_comment()
+        for button in self.tags:
+            if button.text in comment:
+                button.state = "down"
+            else:
+                button.state = "normal"
 
     def lade_lied(self):
         songdirectory.lade_lied()
+
         self.song_titel = songdirectory.get_current_song_name()
         self.song_length = songdirectory.get_currend_song_length()
+        self.lade_tags()
 
     def play_song(self):
         pygame.mixer.music.play()
@@ -115,6 +125,8 @@ class PythontaggerApp(App):
     def on_stop(self):
         pygame.mixer.stop()
         pygame.mixer.quit()
+
+        self.root.save_tags()
         songdirectory.delete_all_playcopys()
 
 
