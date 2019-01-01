@@ -1,36 +1,35 @@
 <EditScreen>:
-    BoxLayout:
-        size: root.size
-        orientation : "vertical"
+    size: root.size
+    orientation : "vertical"
+    spacing : 5
+
+    BoxLayout: #Kopfleiste
         spacing : 5
+        Label:
+            text : root.song_titel
+        Label
+            text : str(root.song_length)
 
-        BoxLayout: #Kopfleiste
-            spacing : 5
-            Label:
-                text : root.song_titel
-            Label
-                text : str(root.song_length)
+    BoxLayout: #liedleiste
+        spacing : 5
+        Button:
+            text : "Prev"
+            on_release : root.prev_song()
 
-        BoxLayout: #liedleiste
-            spacing : 5
-            Button:
-                text : "Prev"
-                on_release : root.prev_song()
+        Button:
+            text : "Play"
+            on_release : root.play_song()
 
-            Button:
-                text : "Play"
-                on_release : root.play_song()
+        Button:
+            text : "Pause"
+            on_release : root.pause_song()
 
-            Button:
-                text : "Pause"
-                on_release : root.pause_song()
+        Button:
+            text : "Next"
+            on_release : root.next_song()
 
-            Button:
-                text : "Next"
-                on_release : root.next_song()
-
-        Slider
-            min : 0
-            max : root.song_length
-            step : 1
-            on_touch_up : root.forward_song(args[0], args[1])
+    Slider
+        min : 0
+        max : root.song_length
+        step : 1
+        on_touch_up : root.forward_song(args[0], args[1])
