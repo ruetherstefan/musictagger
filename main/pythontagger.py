@@ -89,6 +89,7 @@ class EditScreen(BoxLayout):
 
         tag_leiste.add_widget(self.erstelle_tag_button('fairy'))
         tag_leiste.add_widget(self.erstelle_tag_button('dunkel'))
+        tag_leiste.add_widget(ToggleButton())
 
         return tag_leiste
 
@@ -99,6 +100,7 @@ class EditScreen(BoxLayout):
         tag_leiste.add_widget(self.erstelle_tag_button('verschwoerung'))
         tag_leiste.add_widget(self.erstelle_tag_button('drogen'))
         tag_leiste.add_widget(self.erstelle_tag_button('intro'))
+        tag_leiste.add_widget(ToggleButton())
 
         return tag_leiste
 
