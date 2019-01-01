@@ -48,7 +48,7 @@ class EditScreen(BoxLayout):
         tagstring = ""
         for button in self.tags:
             if button.state == "down":
-                tagstring += button.text
+                tagstring += button.text + " "
         songdirectory.save_comment(tagstring)
 
     def lade_tags(self):
@@ -119,7 +119,7 @@ class EditScreen(BoxLayout):
         tag_leiste = BoxLayout(spacing=5)
 
         tag_leiste.add_widget(self.erstelle_tag_button('hardcore'))
-        tag_leiste.add_widget(self.erstelle_tag_button('happyhardcore'))
+        tag_leiste.add_widget(self.erstelle_tag_button('happyhcore'))
         tag_leiste.add_widget(self.erstelle_tag_button('house'))
         tag_leiste.add_widget(self.erstelle_tag_button('hardtechno'))
         tag_leiste.add_widget(self.erstelle_tag_button('schranz'))
