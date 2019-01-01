@@ -26,7 +26,8 @@ class EditScreen(BoxLayout):
 
         self.add_widget(self.erstelle_tag_leiste())
         self.add_widget(self.erstelle_tag_leiste2())
-        self.add_widget(self.erstelle_tag_leiste3())
+        self.add_widget(self.erstelle_tag_leiste_quellmusik())
+        self.add_widget(self.erstelle_tag_leiste_genre())
         self.lade_tags()
 
     def prev_song(self):
@@ -87,7 +88,7 @@ class EditScreen(BoxLayout):
         tag_leiste.add_widget(euphoric)
 
         tag_leiste.add_widget(self.erstelle_tag_button('fairy'))
-        tag_leiste.add_widget(self.erstelle_tag_button('karneval'))
+        tag_leiste.add_widget(self.erstelle_tag_button('dunkel'))
 
         return tag_leiste
 
@@ -95,19 +96,31 @@ class EditScreen(BoxLayout):
         tag_leiste = BoxLayout(spacing=5)
 
         tag_leiste.add_widget(self.erstelle_tag_button('top18'))
-        tag_leiste.add_widget(self.erstelle_tag_button('klassik'))
         tag_leiste.add_widget(self.erstelle_tag_button('verschwoerung'))
+        tag_leiste.add_widget(self.erstelle_tag_button('drogen'))
         tag_leiste.add_widget(self.erstelle_tag_button('intro'))
 
         return tag_leiste
 
-    def erstelle_tag_leiste3(self):
+    def erstelle_tag_leiste_quellmusik(self):
+        tag_leiste = BoxLayout(spacing=5)
+
+        tag_leiste.add_widget(self.erstelle_tag_button('klassik'))
+        tag_leiste.add_widget(self.erstelle_tag_button('rock'))
+        tag_leiste.add_widget(self.erstelle_tag_button('pop'))
+        tag_leiste.add_widget(self.erstelle_tag_button('rap'))
+        tag_leiste.add_widget(self.erstelle_tag_button('karneval'))
+
+        return tag_leiste
+
+    def erstelle_tag_leiste_genre(self):
         tag_leiste = BoxLayout(spacing=5)
 
         tag_leiste.add_widget(self.erstelle_tag_button('hardcore'))
         tag_leiste.add_widget(self.erstelle_tag_button('happyhardcore'))
         tag_leiste.add_widget(self.erstelle_tag_button('house'))
         tag_leiste.add_widget(self.erstelle_tag_button('hardtechno'))
+        tag_leiste.add_widget(self.erstelle_tag_button('schranz'))
 
         return tag_leiste
 
