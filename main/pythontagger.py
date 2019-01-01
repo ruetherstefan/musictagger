@@ -1,12 +1,10 @@
-import os
-
 from kivy.app import App
+from kivy.properties import StringProperty, NumericProperty
 
-from kivy.uix.label import Label
-from kivy.uix.button import Button
 from kivy.uix.togglebutton import ToggleButton
 from kivy.uix.slider import Slider
 from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.widget import Widget
 
 import pygame
 
@@ -16,66 +14,58 @@ from main.songdirectory import SongDirectory
 songdirectory = SongDirectory()
 
 
-
-def play_song(instance):
-    pygame.mixer.music.play()
-
-
-def pause_song(instance):
-    pygame.mixer.music.pause()
-
-
 def forward_song(self, touch):
     if self.collide_point(*touch.pos):
         pygame.mixer.music.rewind()
         pygame.mixer.music.set_pos(self.value)
 
 
-def next_song(instance):
-    pygame.mixer.music.stop()
-
-    songdirectory.save_id3()
-    songdirectory.inc_watched_song_index()
-    songdirectory.lade_lied()
-
-
-def prev_song(instance):
-    pygame.mixer.music.stop()
-
-    songdirectory.save_id3()
-    songdirectory.dec_watched_song_index()
-    songdirectory.lade_lied()
-
-
-class EditScreen(BoxLayout):
+class EditScreen(Widget):
+    song_titel = StringProperty()
+    song_length = NumericProperty()
 
     def __init__(self, **kwargs):
         super(EditScreen, self).__init__(**kwargs)
-        self.orientation = 'vertical'
-        self.spacing = 5
 
-        self.add_widget(self.erstelle_kopf_leiste())
-        self.add_widget(self.erstelle_lied_leiste())
+        self.song_titel = songdirectory.get_current_song_name()
+        self.song_length = songdirectory.get_currend_song_length()
 
-        song_position = Slider(min=0, max=songdirectory.get_song_length())
-        song_position.step = 1
-        song_position.bind(on_touch_up=forward_song)
-        self.add_widget(song_position)
+        #song_position = Slider(min=0, max=songdirectory.get_song_length())
+        #song_position.step = 1
+        #song_position.bind(on_touch_up=forward_song)
+        #self.add_widget(song_position)
 
-        self.add_widget(self.erstelle_tag_leiste())
-        self.add_widget(self.erstelle_tag_leiste2())
-        self.add_widget(self.erstelle_tag_leiste3())
+        #self.add_widget(self.erstelle_tag_leiste())
+        #self.add_widget(self.erstelle_tag_leiste2())
+        #self.add_widget(self.erstelle_tag_leiste3())
 
-    def erstelle_kopf_leiste(self):
-        kopf_leiste = BoxLayout(spacing=5)
+    def prev_song(self):
+        pygame.mixer.music.stop()
 
-        titel = Label(text=str(songdirectory.directory_files[songdirectory.watched_song_index]))
-        kopf_leiste.add_widget(titel)
+        songdirectory.save_id3()
+        songdirectory.dec_watched_song_index()
+        self.lade_lied()
 
-        laenge = Label(text=str(songdirectory.get_song_length()))
-        kopf_leiste.add_widget(laenge)
+    def next_song(self):
+        pygame.mixer.music.stop()
 
-        return kopf_leiste
+        songdirectory.save_id3()
+        songdirectory.inc_watched_song_index()
+        self.lade_lied()
+
+    def lade_lied(self):
+        songdirectory.lade_lied()
+        self.song_titel = songdirectory.get_current_song_name()
+        self.song_length = songdirectory.get_currend_song_length()
+
+    def play_song(self):
+        pygame.mixer.music.play()
+
+    def pause_song(self):
+        pygame.mixer.music.pause()
+
+
+
 
     def erstelle_tag_leiste(self):
         tag_leiste = BoxLayout(spacing=5)
@@ -117,26 +107,8 @@ class EditScreen(BoxLayout):
         btn1.bind(state=lambda o, val: songdirectory.tags.set(name, val == "down"))
         return btn1
 
-    def erstelle_lied_leiste(self):
-        liedleiste = BoxLayout(spacing=5)
 
-        liedleiste.add_widget(self.erstelle_button_mit_titel_und_funktion('Prev', prev_song))
-        liedleiste.add_widget(self.erstelle_button_mit_titel_und_funktion('Play', play_song))
-        liedleiste.add_widget(self.erstelle_button_mit_titel_und_funktion('Pause', pause_song))
-        liedleiste.add_widget(self.erstelle_button_mit_titel_und_funktion('Next', next_song))
-
-        return liedleiste
-
-    def erstelle_button_mit_titel_und_funktion(self, name, funktion):
-        btn4 = Button(text=name)
-        btn4.bind(on_press=funktion)
-        return btn4
-
-
-
-
-
-class MyApp(App):
+class PythontaggerApp(App):
 
     def build(self):
         return EditScreen()
@@ -150,4 +122,4 @@ class MyApp(App):
 if __name__ == '__main__':
     pygame.mixer.init()
     songdirectory.lade_lied()
-    MyApp().run()
+    PythontaggerApp().run()

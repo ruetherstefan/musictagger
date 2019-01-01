@@ -1,0 +1,30 @@
+<EditScreen>:
+    BoxLayout:
+        size: root.size
+        orientation : "vertical"
+        spacing : 5
+
+        BoxLayout: #Kopfleiste
+            spacing : 5
+            Label:
+                text : root.song_titel
+            Label
+                text : str(root.song_length)
+
+        BoxLayout: #liedleiste
+            spacing : 5
+            Button:
+                text : "Prev"
+                on_release : root.prev_song()
+
+            Button:
+                text : "Play"
+                on_release : root.play_song()
+
+            Button:
+                text : "Pause"
+                on_release : root.pause_song()
+
+            Button:
+                text : "Next"
+                on_release : root.next_song()

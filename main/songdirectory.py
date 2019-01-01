@@ -4,13 +4,15 @@ from shutil import copyfile
 
 from pydub import AudioSegment
 import pygame
+import taglib
 
 from main.tags import Tags
+
 
 PLAYCOPY = 'playcopy'
 
 
-class SongDirectory:
+class SongDirectory():
 
     song_ordner = "C:\P\P\musictagger\inputmusic\\"
     watched_song_index = 0
@@ -35,7 +37,10 @@ class SongDirectory:
         return self.song_ordner + PLAYCOPY + str(self.watched_song_index) + '.mp3'
 
     def get_current_song_real_path(self):
-        return self.song_ordner + str(self.directory_files[self.watched_song_index])
+        return self.song_ordner + self.get_current_song_name()
+
+    def get_current_song_name(self):
+        return str(self.directory_files[self.watched_song_index])
 
     def get_song_length(self):
         #audiofile = eyed3.load(self.get_currend_song_path())
@@ -57,11 +62,18 @@ class SongDirectory:
         pygame.mixer.music.load(self.get_currend_song_path())
         pygame.mixer.music.play()
 
+        #self.song_titel = str(self.directory_files[self.watched_song_index])
+        #App.get_running_app().root.song_titel = str(self.directory_files[self.watched_song_index])
+
     def delete_all_playcopys(self):
         directory_files_with_copies = listdir(self.song_ordner)
 
         for file in directory_files_with_copies:
             if PLAYCOPY in file:
                 remove(self.song_ordner + file)
+
+    def get_currend_song_length(self):
+        song = taglib.File(self.get_current_song_real_path())
+        return song.length
 
 
