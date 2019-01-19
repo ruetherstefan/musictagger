@@ -62,5 +62,8 @@ class SongDirectory():
 
     def load_comment(self):
         song = taglib.File(self.get_current_song_real_path())
-        return song.tags["COMMENT"][0]
+        if "COMMENT" in song.tags:
+            return song.tags["COMMENT"][0]
+        else:
+            return ""
 
