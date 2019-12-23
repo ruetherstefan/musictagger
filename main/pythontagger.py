@@ -96,7 +96,7 @@ class EditScreen(BoxLayout):
     def erstelle_tag_leiste2(self):
         tag_leiste = BoxLayout(spacing=5)
 
-        tag_leiste.add_widget(self.erstelle_tag_button('top18'))
+        tag_leiste.add_widget(self.erstelle_tag_button('top19'))
         tag_leiste.add_widget(self.erstelle_tag_button('verschwoerung'))
         tag_leiste.add_widget(self.erstelle_tag_button('drogen'))
         tag_leiste.add_widget(self.erstelle_tag_button('intro'))

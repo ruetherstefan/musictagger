@@ -31,4 +31,3 @@ os.rename(file + "b", file)
 #print(audiofile.tag.publisher)
 
 #audiofile.tag.save()
-
