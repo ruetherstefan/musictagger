@@ -3,3 +3,5 @@ inputmusic/
 __pycache__/
 ablage/
 ffmpeg/
+neu/
+outputmusic/
