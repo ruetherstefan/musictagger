@@ -166,10 +166,12 @@ class EditScreen(BoxLayout):
         return tag_leiste
 
     def erstelle_tag_leiste_genre3(self):
-        tag_leiste = BoxLayout(spacing=5)
+        tag_leiste = BoxLayout(spacing=7)
 
         tag_leiste.add_widget(self.erstelle_tag_button('urban'))
         tag_leiste.add_widget(self.erstelle_tag_button('rap'))
+        tag_leiste.add_widget(self.erstelle_tag_button('reggae'))
+        tag_leiste.add_widget(self.erstelle_tag_button('reggaeton'))
         tag_leiste.add_widget(self.erstelle_tag_button('pop'))
         tag_leiste.add_widget(self.erstelle_tag_button('dance'))
         tag_leiste.add_widget(self.erstelle_tag_button('house'))
