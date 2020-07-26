@@ -177,13 +177,14 @@ class EditScreen(BoxLayout):
         return tag_leiste
 
     def erstelle_tag_leiste_genre4(self):
-        tag_leiste = BoxLayout(spacing=5)
+        tag_leiste = BoxLayout(spacing=6)
 
         tag_leiste.add_widget(self.erstelle_tag_button('alternative'))
         tag_leiste.add_widget(self.erstelle_tag_button('rock'))
         tag_leiste.add_widget(self.erstelle_tag_button('metal'))
         tag_leiste.add_widget(self.erstelle_tag_button('transition'))
         tag_leiste.add_widget(self.erstelle_tag_button('auftritt'))
+        tag_leiste.add_widget(self.erstelle_tag_button('herz20'))
 
         return tag_leiste
 
