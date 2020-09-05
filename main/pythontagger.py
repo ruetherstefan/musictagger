@@ -24,7 +24,7 @@ class EditScreen(BoxLayout):
         self.song_titel = songdirectory.get_current_song_name()
         self.song_length = songdirectory.get_currend_song_length()
 
-        #self.generate_hardstyle_tagging_buttons()
+        self.generate_hardstyle_tagging_buttons()
         self.generate_wedding_tagging_buttons()
 
         self.lade_tags()
@@ -128,8 +128,9 @@ class EditScreen(BoxLayout):
 
         tag_leiste.add_widget(self.erstelle_tag_button('hardcore'))
         tag_leiste.add_widget(self.erstelle_tag_button('happyhcore'))
-        tag_leiste.add_widget(self.erstelle_tag_button('house'))
         tag_leiste.add_widget(self.erstelle_tag_button('hardtechno'))
+        tag_leiste.add_widget(self.erstelle_tag_button('tekno'))
+        tag_leiste.add_widget(self.erstelle_tag_button('tranze'))
         tag_leiste.add_widget(self.erstelle_tag_button('schranz'))
 
         return tag_leiste
@@ -142,7 +143,7 @@ class EditScreen(BoxLayout):
 # Weddings Tags
 
     def erstelle_energy_leiste(self):
-        tag_leiste = BoxLayout(spacing=5)
+        tag_leiste = BoxLayout(spacing=7)
 
         tag_leiste.add_widget(self.erstelleGroupButton('tanzen', 'zweck'))
         tag_leiste.add_widget(self.erstelleGroupButton('entspannen', 'zweck'))
@@ -150,11 +151,13 @@ class EditScreen(BoxLayout):
         tag_leiste.add_widget(self.erstelleGroupButton('eGering', 'enegie'))
         tag_leiste.add_widget(self.erstelleGroupButton('eMittel', 'enegie'))
         tag_leiste.add_widget(self.erstelleGroupButton('eHoch', 'enegie'))
+        tag_leiste.add_widget(self.erstelle_tag_button('sphaerisch'))
+        tag_leiste.add_widget(self.erstelle_tag_button('basslastig'))
 
         return tag_leiste
 
     def erstelle_tag_leiste_genre2(self):
-        tag_leiste = BoxLayout(spacing=6)
+        tag_leiste = BoxLayout(spacing=7)
 
         tag_leiste.add_widget(self.erstelle_tag_button('oldies'))
         tag_leiste.add_widget(self.erstelle_tag_button('roknroll'))
@@ -162,6 +165,7 @@ class EditScreen(BoxLayout):
         tag_leiste.add_widget(self.erstelle_tag_button('90s'))
         tag_leiste.add_widget(self.erstelle_tag_button('schlager'))
         tag_leiste.add_widget(self.erstelle_tag_button('ballermann'))
+        tag_leiste.add_widget(self.erstelle_tag_button('fillin'))
 
         return tag_leiste
 
@@ -175,18 +179,21 @@ class EditScreen(BoxLayout):
         tag_leiste.add_widget(self.erstelle_tag_button('pop'))
         tag_leiste.add_widget(self.erstelle_tag_button('dance'))
         tag_leiste.add_widget(self.erstelle_tag_button('house'))
+        tag_leiste.add_widget(self.erstelle_tag_button('starter'))
 
         return tag_leiste
 
     def erstelle_tag_leiste_genre4(self):
-        tag_leiste = BoxLayout(spacing=6)
+        tag_leiste = BoxLayout(spacing=7)
 
         tag_leiste.add_widget(self.erstelle_tag_button('alternative'))
         tag_leiste.add_widget(self.erstelle_tag_button('rock'))
         tag_leiste.add_widget(self.erstelle_tag_button('metal'))
+        tag_leiste.add_widget(self.erstelle_tag_button('latennight'))
         tag_leiste.add_widget(self.erstelle_tag_button('transition'))
         tag_leiste.add_widget(self.erstelle_tag_button('auftritt'))
         tag_leiste.add_widget(self.erstelle_tag_button('herz20'))
+        tag_leiste.add_widget(self.erstelle_tag_button('party20'))
 
         return tag_leiste
 
