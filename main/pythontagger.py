@@ -24,15 +24,22 @@ class EditScreen(BoxLayout):
         self.song_titel = songdirectory.get_current_song_name()
         self.song_length = songdirectory.get_currend_song_length()
 
-        self.generate_hardstyle_tagging_buttons()
-        self.generate_wedding_tagging_buttons()
+        #self.generate_hardstyle_tagging_buttons()
+        #self.generate_wedding_tagging_buttons()
+        self.add_widget(self.erstelle_tag_leiste())
+        self.add_widget(self.erstelle_tag_leiste2())
+        self.add_widget(self.erstelle_tag_leiste_genre())
+        self.add_widget(self.erstelle_tag_leiste_quellmusik())
+        self.add_widget(self.erstelle_tag_leiste_genre2())
+        self.add_widget(self.erstelle_energy_leiste())
+        self.add_widget(self.erstelle_tag_leiste_genre4())
+
 
         self.lade_tags()
 
     def generate_wedding_tagging_buttons(self):
         self.add_widget(self.erstelle_energy_leiste())
         self.add_widget(self.erstelle_tag_leiste_genre2())
-        self.add_widget(self.erstelle_tag_leiste_genre3())
         self.add_widget(self.erstelle_tag_leiste_genre4())
 
     def generate_hardstyle_tagging_buttons(self):
@@ -104,7 +111,7 @@ class EditScreen(BoxLayout):
     def erstelle_tag_leiste2(self):
         tag_leiste = BoxLayout(spacing=5)
 
-        tag_leiste.add_widget(self.erstelle_tag_button('top19'))
+        tag_leiste.add_widget(self.erstelle_tag_button('top20'))
         tag_leiste.add_widget(self.erstelle_tag_button('verschwoerung'))
         tag_leiste.add_widget(self.erstelle_tag_button('drogen'))
         tag_leiste.add_widget(self.erstelle_tag_button('intro'))
@@ -113,18 +120,21 @@ class EditScreen(BoxLayout):
         return tag_leiste
 
     def erstelle_tag_leiste_quellmusik(self):
-        tag_leiste = BoxLayout(spacing=5)
+        tag_leiste = BoxLayout(spacing=8)
 
         tag_leiste.add_widget(self.erstelle_tag_button('klassik'))
-        tag_leiste.add_widget(self.erstelle_tag_button('rock'))
-        tag_leiste.add_widget(self.erstelle_tag_button('pop'))
-        tag_leiste.add_widget(self.erstelle_tag_button('rap'))
         tag_leiste.add_widget(self.erstelle_tag_button('karneval'))
+        tag_leiste.add_widget(self.erstelle_tag_button('alternative'))
+        tag_leiste.add_widget(self.erstelle_tag_button('rock'))
+        tag_leiste.add_widget(self.erstelle_tag_button('metal'))
+        tag_leiste.add_widget(self.erstelle_tag_button('oldies'))
+        tag_leiste.add_widget(self.erstelle_tag_button('roknroll'))
+        tag_leiste.add_widget(self.erstelle_tag_button('deutsch'))
 
         return tag_leiste
 
     def erstelle_tag_leiste_genre(self):
-        tag_leiste = BoxLayout(spacing=5)
+        tag_leiste = BoxLayout(spacing=8)
 
         tag_leiste.add_widget(self.erstelle_tag_button('hardcore'))
         tag_leiste.add_widget(self.erstelle_tag_button('happyhcore'))
@@ -132,6 +142,9 @@ class EditScreen(BoxLayout):
         tag_leiste.add_widget(self.erstelle_tag_button('tekno'))
         tag_leiste.add_widget(self.erstelle_tag_button('tranze'))
         tag_leiste.add_widget(self.erstelle_tag_button('schranz'))
+        tag_leiste.add_widget(self.erstelle_tag_button('dance'))
+        tag_leiste.add_widget(self.erstelle_tag_button('house'))
+        tag_leiste.add_widget(self.erstelle_tag_button('handsup'))
 
         return tag_leiste
 
@@ -157,43 +170,32 @@ class EditScreen(BoxLayout):
         return tag_leiste
 
     def erstelle_tag_leiste_genre2(self):
-        tag_leiste = BoxLayout(spacing=7)
+        tag_leiste = BoxLayout(spacing=9)
 
-        tag_leiste.add_widget(self.erstelle_tag_button('oldies'))
-        tag_leiste.add_widget(self.erstelle_tag_button('roknroll'))
         tag_leiste.add_widget(self.erstelle_tag_button('80s'))
         tag_leiste.add_widget(self.erstelle_tag_button('90s'))
         tag_leiste.add_widget(self.erstelle_tag_button('schlager'))
         tag_leiste.add_widget(self.erstelle_tag_button('ballermann'))
-        tag_leiste.add_widget(self.erstelle_tag_button('fillin'))
-
-        return tag_leiste
-
-    def erstelle_tag_leiste_genre3(self):
-        tag_leiste = BoxLayout(spacing=7)
-
         tag_leiste.add_widget(self.erstelle_tag_button('urban'))
         tag_leiste.add_widget(self.erstelle_tag_button('rap'))
         tag_leiste.add_widget(self.erstelle_tag_button('reggae'))
         tag_leiste.add_widget(self.erstelle_tag_button('reggaeton'))
         tag_leiste.add_widget(self.erstelle_tag_button('pop'))
-        tag_leiste.add_widget(self.erstelle_tag_button('dance'))
-        tag_leiste.add_widget(self.erstelle_tag_button('house'))
-        tag_leiste.add_widget(self.erstelle_tag_button('starter'))
 
         return tag_leiste
 
     def erstelle_tag_leiste_genre4(self):
-        tag_leiste = BoxLayout(spacing=7)
+        tag_leiste = BoxLayout(spacing=9)
 
-        tag_leiste.add_widget(self.erstelle_tag_button('alternative'))
-        tag_leiste.add_widget(self.erstelle_tag_button('rock'))
-        tag_leiste.add_widget(self.erstelle_tag_button('metal'))
         tag_leiste.add_widget(self.erstelle_tag_button('latennight'))
         tag_leiste.add_widget(self.erstelle_tag_button('transition'))
         tag_leiste.add_widget(self.erstelle_tag_button('auftritt'))
+        tag_leiste.add_widget(self.erstelle_tag_button('fillin'))
         tag_leiste.add_widget(self.erstelle_tag_button('herz20'))
         tag_leiste.add_widget(self.erstelle_tag_button('party20'))
+        tag_leiste.add_widget(self.erstelle_tag_button('flomai'))
+        tag_leiste.add_widget(self.erstelle_tag_button('starter'))
+        tag_leiste.add_widget(self.erstelle_tag_button('warmup'))
 
         return tag_leiste
 
