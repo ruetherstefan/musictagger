@@ -111,7 +111,7 @@ class EditScreen(BoxLayout):
     def erstelle_tag_leiste2(self):
         tag_leiste = BoxLayout(spacing=5)
 
-        tag_leiste.add_widget(self.erstelle_tag_button('top20'))
+        tag_leiste.add_widget(self.erstelle_tag_button('top24'))
         tag_leiste.add_widget(self.erstelle_tag_button('verschwoerung'))
         tag_leiste.add_widget(self.erstelle_tag_button('drogen'))
         tag_leiste.add_widget(self.erstelle_tag_button('intro'))
@@ -174,8 +174,8 @@ class EditScreen(BoxLayout):
 
         tag_leiste.add_widget(self.erstelle_tag_button('80s'))
         tag_leiste.add_widget(self.erstelle_tag_button('90s'))
+        tag_leiste.add_widget(self.erstelle_tag_button('00s'))
         tag_leiste.add_widget(self.erstelle_tag_button('schlager'))
-        tag_leiste.add_widget(self.erstelle_tag_button('ballermann'))
         tag_leiste.add_widget(self.erstelle_tag_button('urban'))
         tag_leiste.add_widget(self.erstelle_tag_button('rap'))
         tag_leiste.add_widget(self.erstelle_tag_button('reggae'))
@@ -191,8 +191,8 @@ class EditScreen(BoxLayout):
         tag_leiste.add_widget(self.erstelle_tag_button('transition'))
         tag_leiste.add_widget(self.erstelle_tag_button('auftritt'))
         tag_leiste.add_widget(self.erstelle_tag_button('fillin'))
-        tag_leiste.add_widget(self.erstelle_tag_button('herz20'))
-        tag_leiste.add_widget(self.erstelle_tag_button('party20'))
+        tag_leiste.add_widget(self.erstelle_tag_button('herz24'))
+        tag_leiste.add_widget(self.erstelle_tag_button('party24'))
         tag_leiste.add_widget(self.erstelle_tag_button('flomai'))
         tag_leiste.add_widget(self.erstelle_tag_button('starter'))
         tag_leiste.add_widget(self.erstelle_tag_button('warmup'))
